@@ -1,0 +1,13 @@
+﻿  dynamic_array.c
+F:\PROGRAMMING\C\DynamicArray\DynamicArray\dynamic_array.c(30,1): warning C4005: get_casted: изменение макроопределения
+F:\PROGRAMMING\C\DynamicArray\DynamicArray\dynamic_array.h(57): message : см. предыдущее определение "get_casted"
+F:\PROGRAMMING\C\DynamicArray\DynamicArray\dynamic_array.c(58,34): warning C4018: >: несоответствие типов со знаком и без знака
+F:\PROGRAMMING\C\DynamicArray\DynamicArray\dynamic_array.c(71,42): warning C4018: >=: несоответствие типов со знаком и без знака
+F:\PROGRAMMING\C\DynamicArray\DynamicArray\dynamic_array.c(117,94): warning C4244: return: преобразование "const int64_t" в "int", возможна потеря данных
+F:\PROGRAMMING\C\DynamicArray\DynamicArray\dynamic_array.c(118,96): warning C4244: return: преобразование "const uint64_t" в "int", возможна потеря данных
+F:\PROGRAMMING\C\DynamicArray\DynamicArray\dynamic_array.c(143,28): warning C4267: =: преобразование из "size_t" в "uint8_t"; возможна потеря данных
+  main.c
+F:\PROGRAMMING\C\DynamicArray\DynamicArray\main.c(10,2): warning C4018: <: несоответствие типов со знаком и без знака
+F:\PROGRAMMING\C\DynamicArray\DynamicArray\main.c(42,2): warning C4018: <: несоответствие типов со знаком и без знака
+  Создание кода...
+  DynamicArray.vcxproj -> F:\PROGRAMMING\C\DynamicArray\Debug\DynamicArray.exe
