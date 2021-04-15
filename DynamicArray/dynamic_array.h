@@ -9,28 +9,42 @@ typedef struct dynamic_array
 {
 	array_data* arr_data;
 
-	void* (*get)(struct dynamic_array self, size_t ind);
-	void* (*bin_search_by)(struct dynamic_array self, const void* key_ptr, int (*cmp)(const void* arg1, const void* arg2));
-	void* (*fold)(struct dynamic_array self, const void* start, size_t size_of_start, void* (*act)(const void* accumulator, const void* elem));
-	
-	void (*push)(struct dynamic_array* self, void* elem);
-	void (*push_cloned)(struct dynamic_array* self, const void* elem);
-	void (*pop)(struct dynamic_array* self);
-	void (*shrink_to_fit)(struct dynamic_array* self);
-	void (*insert)(struct dynamic_array* self, size_t, void* elem);
-	void (*remove)(struct dynamic_array* self, size_t ind);
-	void (*sort_by)(struct dynamic_array* self, int (*cmp)(const void* arg1, const void* arg2));
-	void (*reverse) (struct dynamic_array* self);
-	
-	size_t(*size)(struct dynamic_array self);
-	size_t(*find_first)(struct dynamic_array self, const void* key_ptr);
-	size_t(*find_last)(struct dynamic_array self, const void* key_ptr);
+	int (*contains)						(struct dynamic_array self, const void* key);
+	int (*empty)						(struct dynamic_array self);
+	int (*not_empty)					(struct dynamic_array self);
 
-	struct dynamic_array* (*filter) (struct dynamic_array self, int (*f) (const void* elem));
-	struct dynamic_array* (*scan) (struct dynamic_array self, const void* start, size_t size_of_start, void* (*act)(const void* accumulator, const void* elem));
-	struct dynamic_array* (*clone) (struct dynamic_array self);
-	struct dynamic_array* (*sub_array) (struct dynamic_array self, size_t from, size_t to);
-	struct dynamic_array* (*reversed) (struct dynamic_array self);
+	void* (*as_ptr)						(struct dynamic_array* self);
+	void* (*first)						(struct dynamic_array* self);
+	void* (*last)						(struct dynamic_array* self);
+	void* (*get)						(struct dynamic_array* self, size_t ind);
+	void* (*pop)						(struct dynamic_array* self);
+	void* (*remove)						(struct dynamic_array* self, size_t ind);
+	void* (*bin_search_by)				(struct dynamic_array self, const void* key_ptr, int (*cmp)(const void* arg1, const void* arg2));
+	void* (*fold)						(struct dynamic_array self, const void* start, size_t size_of_start, void* (*act)(const void* accumulator, const void* elem));
+
+	void (*push)						(struct dynamic_array* self, void* elem);
+	void (*push_cloned)					(struct dynamic_array* self, const void* elem);
+	void (*insert)						(struct dynamic_array* self, size_t ind, void* elem);
+	void (*insert_cloned)				(struct dynamic_array* self, size_t ind, const void* elem);
+	void (*shrink_to_fit)				(struct dynamic_array* self);
+	void (*sort_by)						(struct dynamic_array* self, int (*cmp)(const void* arg1, const void* arg2));
+	void (*reverse)						(struct dynamic_array* self);
+	void (*for_each)					(struct dynamic_array* self, void(*f)(void* elem));
+	void (*clear)						(struct dynamic_array* self);
+	void (*free)						(struct dynamic_array* self);
+
+	size_t (*size)						(struct dynamic_array self);
+	size_t (*find_first)				(struct dynamic_array self, const void* key_ptr);
+	size_t (*find_last)					(struct dynamic_array self, const void* key_ptr);
+	size_t(*find_first_by)				(struct dynamic_array self, int (*f)(const void* elem));
+	size_t(*find_last_by)				(struct dynamic_array self, int (*f)(const void* elem));
+
+	struct dynamic_array* (*filter)		(struct dynamic_array self, int (*f) (const void* elem));
+	struct dynamic_array* (*scan)		(struct dynamic_array self, const void* start, size_t size_of_start, void* (*act)(const void* accumulator, const void* elem));
+	struct dynamic_array* (*clone)		(struct dynamic_array self);
+	struct dynamic_array* (*sub_array)	(struct dynamic_array self, size_t from, size_t to);
+	struct dynamic_array* (*reversed)	(struct dynamic_array self);
+	struct dynamic_array* (*on_each)	(struct dynamic_array* self, void(*f)(void* elem));
 
 } dynamic_array;
 
@@ -47,7 +61,6 @@ int __cmp_uint64_t__(const void* arg1, const void* arg2);
 int __cmp_str__(const void* arg1, const void* arg2);
 
 void __set_methods_dyn_array__(dynamic_array* arr);
-void* __get_data_dyn_array__(dynamic_array* arr);
 size_t __get_size_of_elem__(dynamic_array* arr);
 size_t __calc_capacity__(size_t size);
 
@@ -56,9 +69,12 @@ inline dynamic_array* new_dyn_array_with_capacity(size_t size_of_elem, uint8_t c
 inline dynamic_array* new_dyn_array_with_elem(size_t size_of_elem, const void* elem, size_t amount);
 inline array_data* __data_with_elems__(size_t capacity, size_t amount, size_t size_of_elem);
 
-#define get_casted(ARR_PTR, IND, TYPE)	*(TYPE*)(ARR_PTR)->get(*(ARR_PTR), IND)
-#define sort_dyn_array(ARR_PTR, TYPE) qsort(__get_data_dyn_array__(ARR_PTR), (ARR_PTR)->size(*(ARR_PTR)), __get_size_of_elem__(ARR_PTR), __cmp_##TYPE##__)
-#define bin_search_dyn_array(ARR_PTR, KEY_PTR, TYPE) bsearch(KEY_PTR, __get_data_dyn_array__(ARR_PTR), (ARR_PTR)->size(*(ARR_PTR)), __get_size_of_elem__(ARR_PTR), __cmp_##TYPE##__)
+#define as_casted_ptr(ARR_PTR, TYPE) (TYPE)(ARR_PTR)->as_ptr(ARR_PTR)
+#define get_casted(ARR_PTR, IND, TYPE)	(TYPE*)(ARR_PTR)->get(ARR_PTR, IND)
+#define get_first_casted(ARR_PTR, TYPE)	(TYPE*)(ARR_PTR)->get(ARR_PTR, 0)
+#define get_last_casted(ARR_PTR, TYPE)	(TYPE*)(ARR_PTR)->get(ARR_PTR, (ARR_PTR)->size(*(ARR_PTR)) - 1)
+#define sort_dyn_array(ARR_PTR, TYPE) qsort((ARR_PTR)->as_ptr(ARR_PTR), (ARR_PTR)->size(*(ARR_PTR)), __get_size_of_elem__(ARR_PTR), __cmp_##TYPE##__)
+#define bin_search_dyn_array(ARR_PTR, KEY_PTR, TYPE) bsearch(KEY_PTR, (ARR_PTR)->as_ptr(ARR_PTR), (ARR_PTR)->size(*(ARR_PTR)), __get_size_of_elem__(ARR_PTR), __cmp_##TYPE##__)
 
 #define new_dyn_array_with_elems(ARRAY_NAME, TYPE, ...)												\
 	TYPE __ARGS##ARRAY_NAME##__[] = { __VA_ARGS__ };												\
@@ -73,7 +89,7 @@ inline array_data* __data_with_elems__(size_t capacity, size_t amount, size_t si
 		sizeof(TYPE)																				\
 	);																								\
 	__set_methods_dyn_array__(ARRAY_NAME);															\
-	TYPE* __DATA_OF_ARRAY##ARRAY_NAME##__ = __get_data_dyn_array__(ARRAY_NAME);						\
+	TYPE* __DATA_OF_ARRAY##ARRAY_NAME##__ = (ARRAY_NAME)->as_ptr(ARRAY_NAME);						\
 	for (size_t i = 0; i < __AMOUNT_##ARRAY_NAME##__; i++)											\
 		__DATA_OF_ARRAY##ARRAY_NAME##__[i] = __ARGS##ARRAY_NAME##__[i]
 

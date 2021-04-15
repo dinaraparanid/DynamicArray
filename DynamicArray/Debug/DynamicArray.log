@@ -1,9 +1,2 @@
-﻿  dynamic_array.c
-F:\PROGRAMMING\C\DynamicArray\DynamicArray\dynamic_array.c(42,23): warning C4018: <: несоответствие типов со знаком и без знака
-F:\PROGRAMMING\C\DynamicArray\DynamicArray\dynamic_array.c(64,34): warning C4018: >: несоответствие типов со знаком и без знака
-F:\PROGRAMMING\C\DynamicArray\DynamicArray\dynamic_array.c(88,74): warning C4267: =: преобразование из "size_t" в "uint8_t"; возможна потеря данных
-F:\PROGRAMMING\C\DynamicArray\DynamicArray\dynamic_array.c(133,94): warning C4244: return: преобразование "const int64_t" в "int", возможна потеря данных
-F:\PROGRAMMING\C\DynamicArray\DynamicArray\dynamic_array.c(134,96): warning C4244: return: преобразование "const uint64_t" в "int", возможна потеря данных
-F:\PROGRAMMING\C\DynamicArray\DynamicArray\dynamic_array.c(170,28): warning C4267: =: преобразование из "size_t" в "uint8_t"; возможна потеря данных
-F:\PROGRAMMING\C\DynamicArray\DynamicArray\dynamic_array.c(247,29): warning C4018: <: несоответствие типов со знаком и без знака
+﻿  main.c
   DynamicArray.vcxproj -> F:\PROGRAMMING\C\DynamicArray\Debug\DynamicArray.exe
