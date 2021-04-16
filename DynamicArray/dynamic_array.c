@@ -25,7 +25,7 @@ void __swap__(void* p1, void* p2, const size_t size_of_elem)
 	free(buffer);
 }
 
-void* __ptr_check__(void* p)
+void* __ptr_check__(const void* const p)
 {
 	if (p == NULL)
 	{
