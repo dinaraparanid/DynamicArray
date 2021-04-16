@@ -33,14 +33,14 @@ typedef struct dynamic_array
 	 * @return 1 if array contains key else 0
 	 */
 
-	int (*contains)						(struct dynamic_array self, const void* key);
+	int (*contains)	(struct dynamic_array self, const void* key);
 
 	/**
 	 * Checks if array is empty.
 	 * @return 1 if empty else 0
 	 */
 
-	int (*empty)						(struct dynamic_array self);
+	int (*empty) (struct dynamic_array self);
 
 	/**
 	 * Checks if array is empty.
@@ -48,7 +48,7 @@ typedef struct dynamic_array
 	 * @return 1 if not empty else 0
 	 */
 
-	int (*not_empty)					(struct dynamic_array self);
+	int (*not_empty) (struct dynamic_array self);
 
 	/**
 	 * Cast array to pointer.
@@ -56,7 +56,7 @@ typedef struct dynamic_array
 	 * @return pointer to array
 	 */
 
-	void* (*as_ptr)						(struct dynamic_array* self);
+	void* (*as_ptr)	(struct dynamic_array* self);
 
 	/**
 	 * Return first element of array.
@@ -64,7 +64,7 @@ typedef struct dynamic_array
 	 * @return pointer to first element of array
 	 */
 
-	void* (*first)						(struct dynamic_array* self);
+	void* (*first) (struct dynamic_array* self);
 
 	/**
 	 * Return last element of array.
@@ -72,7 +72,7 @@ typedef struct dynamic_array
 	 * @return pointer to last element of array
 	 */
 
-	void* (*last)						(struct dynamic_array* self);
+	void* (*last) (struct dynamic_array* self);
 
 	/**
 	 * Return element by index from array.
@@ -81,7 +81,7 @@ typedef struct dynamic_array
 	 * @return pointer to element by index of array
 	 */
 
-	void* (*get)						(struct dynamic_array* self, size_t ind);
+	void* (*get) (struct dynamic_array* self, size_t ind);
 
 	/**
 	 * Remove last element of array.
@@ -89,7 +89,7 @@ typedef struct dynamic_array
 	 * @return pointer to removed element
 	 */
 
-	void* (*pop)						(struct dynamic_array* self);
+	void* (*pop) (struct dynamic_array* self);
 
 	/**
 	 * Remove element by index from array.
@@ -98,7 +98,7 @@ typedef struct dynamic_array
 	 * @return pointer to removed element
 	 */
 
-	void* (*remove)						(struct dynamic_array* self, size_t ind);
+	void* (*remove) (struct dynamic_array* self, size_t ind);
 
 	/**
 	 * Binary search of elemnt by function.
@@ -108,7 +108,7 @@ typedef struct dynamic_array
 	 * @return pointer to element if it exists or null
 	 */
 
-	void* (*bin_search_by)				(struct dynamic_array self, const void* key_ptr, int (*cmp)(const void* arg1, const void* arg2));
+	void* (*bin_search_by) (struct dynamic_array self, const void* key_ptr, int (*cmp)(const void* arg1, const void* arg2));
 
 	/**
 	 * Folds every element into an accumulator
@@ -120,7 +120,7 @@ typedef struct dynamic_array
 	 * @return pointer on result
 	 */
 
-	void* (*fold)						(struct dynamic_array self, const void* start, size_t size_of_start, void* (*act)(const void* accumulator, const void* elem));
+	void* (*fold) (struct dynamic_array self, const void* start, size_t size_of_start, void* (*act)(const void* accumulator, const void* elem));
 
 	/**
 	 * Push element to end of array and move it.
@@ -129,7 +129,7 @@ typedef struct dynamic_array
 	 * @param elem pointer on elem
 	 */
 
-	void (*push)						(struct dynamic_array* self, void* elem);
+	void (*push) (struct dynamic_array* self, void* elem);
 
 	/**
 	 * Push element to end of array by cloning.
@@ -138,7 +138,7 @@ typedef struct dynamic_array
 	 * @param elem pointer on elem
 	 */
 
-	void (*push_cloned)					(struct dynamic_array* self, const void* elem);
+	void (*push_cloned) (struct dynamic_array* self, const void* elem);
 
 	/**
 	 * Push element to indexed
@@ -149,7 +149,7 @@ typedef struct dynamic_array
 	 * @param elem pointer on elem
 	 */
 
-	void (*insert)						(struct dynamic_array* self, size_t ind, void* elem);
+	void (*insert) (struct dynamic_array* self, size_t ind, void* elem);
 
 	/**
 	 * Push element to indexed
@@ -160,14 +160,14 @@ typedef struct dynamic_array
 	 * @param elem pointer on elem
 	 */
 
-	void (*insert_cloned)				(struct dynamic_array* self, size_t ind, const void* elem);
+	void (*insert_cloned) (struct dynamic_array* self, size_t ind, const void* elem);
 
 	/**
 	 * Reduces capacity of array.
 	 * @param self pointer on array
 	 */
 
-	void (*shrink_to_fit)				(struct dynamic_array* self);
+	void (*shrink_to_fit) (struct dynamic_array* self);
 
 	/**
 	 * Sorts elements by function.
@@ -175,14 +175,14 @@ typedef struct dynamic_array
 	 * @param cmp compare function
 	 */
 
-	void (*sort_by)						(struct dynamic_array* self, int (*cmp)(const void* arg1, const void* arg2));
+	void (*sort_by) (struct dynamic_array* self, int (*cmp)(const void* arg1, const void* arg2));
 
 	/**
 	 * Reverses elements of array.
 	 * @param self pointer on array
 	 */
 
-	void (*reverse)						(struct dynamic_array* self);
+	void (*reverse) (struct dynamic_array* self);
 
 	/**
 	 * Iterates on which elemnt and makes something.
@@ -190,21 +190,21 @@ typedef struct dynamic_array
 	 * @param f action function
 	 */
 
-	void (*for_each)					(struct dynamic_array* self, void(*f)(void* elem));
+	void (*for_each) (struct dynamic_array* self, void(*f)(void* elem));
 
 	/**
 	 * Clears all array.
 	 * @param self pointer on array
 	 */
 
-	void (*clear)						(struct dynamic_array* self);
+	void (*clear) (struct dynamic_array* self);
 
 	/**
 	 * Frees memory.
 	 * @param self pointer on array
 	 */
 
-	void (*free)						(struct dynamic_array* self);
+	void (*free) (struct dynamic_array* self);
 
 	/**
 	 * Size of array.
@@ -212,7 +212,7 @@ typedef struct dynamic_array
 	 * @return size of array
 	 */
 
-	size_t(*size)						(struct dynamic_array self);
+	size_t(*size) (struct dynamic_array self);
 
 	/**
 	 * Search first element by key.
@@ -221,7 +221,7 @@ typedef struct dynamic_array
 	 * @return index of element if it exists or null
 	 */
 
-	size_t(*find_first)				(struct dynamic_array self, const void* key_ptr);
+	size_t(*find_first) (struct dynamic_array self, const void* key_ptr);
 
 	/**
 	 * Search last element by key.
@@ -230,7 +230,7 @@ typedef struct dynamic_array
 	 * @return index of element if it exists or null
 	 */
 
-	size_t(*find_last)					(struct dynamic_array self, const void* key_ptr);
+	size_t(*find_last) (struct dynamic_array self, const void* key_ptr);
 
 	/**
 	 * Search first element by function.
@@ -239,7 +239,7 @@ typedef struct dynamic_array
 	 * @return index of element if it exists or null
 	 */
 
-	size_t(*find_first_by)				(struct dynamic_array self, int (*f)(const void* elem));
+	size_t(*find_first_by) (struct dynamic_array self, int (*f)(const void* elem));
 
 	/**
 	 * Search last element by function.
@@ -248,7 +248,7 @@ typedef struct dynamic_array
 	 * @return index of element if it exists or null
 	 */
 
-	size_t(*find_last_by)				(struct dynamic_array self, int (*f)(const void* elem));
+	size_t(*find_last_by) (struct dynamic_array self, int (*f)(const void* elem));
 
 	/**
 	 * Filters elemnts in array by some filter funtion.
@@ -257,7 +257,7 @@ typedef struct dynamic_array
 	 * @return filtered array
 	 */
 
-	struct dynamic_array* (*filter)		(struct dynamic_array self, int (*f) (const void* elem));
+	struct dynamic_array* (*filter) (struct dynamic_array self, int (*f) (const void* elem));
 
 	/**
 	 * An iterator adaptor similar to fold
@@ -270,7 +270,7 @@ typedef struct dynamic_array
 	 * @returnfolded array
 	 */
 
-	struct dynamic_array* (*scan)		(struct dynamic_array self, const void* start, size_t size_of_start, void* (*act)(const void* accumulator, const void* elem));
+	struct dynamic_array* (*scan) (struct dynamic_array self, const void* start, size_t size_of_start, void* (*act)(const void* accumulator, const void* elem));
 
 	/**
 	 * Clones array.
@@ -278,7 +278,7 @@ typedef struct dynamic_array
 	 * @return array's clone
 	 */
 
-	struct dynamic_array* (*clone)		(struct dynamic_array self);
+	struct dynamic_array* (*clone) (struct dynamic_array self);
 
 	/**
 	 * Sub array by start and finish.
@@ -288,7 +288,7 @@ typedef struct dynamic_array
 	 * @return array's clone [from; to]
 	 */
 
-	struct dynamic_array* (*sub_array)	(struct dynamic_array self, size_t from, size_t to);
+	struct dynamic_array* (*sub_array) (struct dynamic_array self, size_t from, size_t to);
 
 	/**
 	 * Reverse array and clones it.
@@ -296,7 +296,7 @@ typedef struct dynamic_array
 	 * @return reverse array
 	 */
 
-	struct dynamic_array* (*reversed)	(struct dynamic_array self);
+	struct dynamic_array* (*reversed) (struct dynamic_array self);
 
 	/**
 	 * Similar for for each
@@ -304,7 +304,7 @@ typedef struct dynamic_array
 	 * @return array
 	 */
 
-	struct dynamic_array* (*on_each)	(struct dynamic_array* self, void(*f)(void* elem));
+	struct dynamic_array* (*on_each) (struct dynamic_array* self, void(*f)(void* elem));
 
 } dynamic_array;
 
