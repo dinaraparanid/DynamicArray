@@ -11,7 +11,7 @@ void* sum(const void* const acc, const void* const x)
 	return (void*)ans;
 }
 
-int reversed_ord(const void* arg1, const void* arg2) {
+int reversed_ord(const void* const arg1, const void* const arg2) {
 	return *(const int* const)arg2 - *(const int* const)arg1;
 }
 
