@@ -1,4 +1,16 @@
-﻿#ifndef DYNAMICARRAY_H
+/**
+ * @author dinaraparanid
+ * @link https://github.com/dinaraparanid
+ * 
+ * @note If you are using my library,
+ * please, give some credits to me
+ * by not removing this text.
+ *
+ * You need to install dynamic_array.h and .c files
+ * and put them to your project.
+ */
+
+#ifndef DYNAMICARRAY_H
 #define DYNAMICARRAY_H
 
 #include <stdint.h>
